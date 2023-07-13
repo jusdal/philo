@@ -6,7 +6,7 @@
 #    By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 19:18:25 by jdaly             #+#    #+#              #
-#    Updated: 2023/07/11 20:16:00 by jdaly            ###   ########.fr        #
+#    Updated: 2023/07/14 01:42:49 by jdaly            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,13 @@ NAME = philo
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pthread #-fsanitize=address -g
 
-INC = /incl/philo.h
+INC = -I ./incl
 
 SRC = main.c
-
 OBJ = $(SRC:.c=.o)
 
-%.o: %.c $(INC)
-	$(CC) -Wall -Wextra -Werror -c $< -o $@
+%.o: %.c
+	$(CC) -Wall -Wextra -Werror -c $< -o $@ $(INC)
 
 all: $(NAME)
 
