@@ -6,24 +6,31 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/11 18:01:44 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/13 19:04:26 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdio.h>
 # include <pthread.h>
 # include <stdbool.h>
+# include <stdio.h>
+# include <sys/time.h>
+# include <unistd.h>
+
+
+# define NC	"\e[0m"
+# define YELLOW	"\e[1;33m"
 
 typedef struct s_data
 {
-int	total; //total number of philos
-int	die_time; //time to die
-int eat_time; //time to eat
-int	sleep_time; //time to sleep
-int	must_eat; //number of times philo must eat
+int			total; //total number of philos
+int			die_time; //time to die
+int 		eat_time; //time to eat
+int			sleep_time; //time to sleep
+int			must_eat; //number of times philo must eat
+pthread_t	monitor; //checks for any dead philos
 
 } t_data;
 
