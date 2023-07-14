@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/13 19:06:30 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/14 22:14:44 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	ft_isdigit(int c)
 //function to check argument input
 int	check_input(char *av[])
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
 	while (av[++i])
 	{
 		j = -1;
-		while(av[i][++j])
+		while (av[i][++j])
 		{
 			if (!(ft_isdigit(av[i][j])))
 				return (0);
@@ -67,7 +67,7 @@ int	ft_atoi(const char *str)
 
 /* functions to initialize structs */
 void	init_data(int ac, char *av[], t_data *data)
-{	
+{
 	data->total = ft_atoi(av[1]);
 	data->die_time = ft_atoi(av[2]);
 	data->eat_time = ft_atoi(av[3]);
@@ -75,13 +75,26 @@ void	init_data(int ac, char *av[], t_data *data)
 	data->must_eat = -1;
 	if (ac - 1 == 5)
 		data->must_eat = ft_atoi(av[5]);
-	
 }
-/*
-void	init_philos(char *av[], t_data *data)
+
+t_philo	**init_philos(char *av[], t_data *data)
 {
-	//
-}*/
+	int		i;
+	t_philo	**philos;
+
+	i = 0;
+	malloc(sizeof(t_philo) * data->total);
+	while (i < data->total)
+	{
+		philos[i] = malloc(sizeof(t_philo) * 1);
+		if (!philos[i])
+			free_error("Malloc Error\n", EXIT_FAILURE);
+		philos[i]->num = i;
+		philos[i]->data = data;
+		philos[i]->times_eaten = 0;
+		philos[i]->finished = false;
+	}
+}
 
 /* time functions */
 time_t	get_time_ms(void)
@@ -89,8 +102,9 @@ time_t	get_time_ms(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
+
 int	main(int ac, char *av[])
 {
 	time_t start_time;
