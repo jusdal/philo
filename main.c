@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/14 22:14:44 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/15 02:05:25 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ int	ft_atoi(const char *str)
 }
 
 /* functions to initialize structs */
-void	init_data(int ac, char *av[], t_data *data)
+t_data	*init_data(int ac, char *av[], t_data *data)
 {
+	t_data *data;
+
+	data = malloc(sizeof(t_data) * 1);
 	data->total = ft_atoi(av[1]);
 	data->die_time = ft_atoi(av[2]);
 	data->eat_time = ft_atoi(av[3]);
@@ -75,6 +78,7 @@ void	init_data(int ac, char *av[], t_data *data)
 	data->must_eat = -1;
 	if (ac - 1 == 5)
 		data->must_eat = ft_atoi(av[5]);
+	return (data);
 }
 
 t_philo	**init_philos(char *av[], t_data *data)
@@ -94,6 +98,7 @@ t_philo	**init_philos(char *av[], t_data *data)
 		philos[i]->times_eaten = 0;
 		philos[i]->finished = false;
 	}
+	return (philos);
 }
 
 /* time functions */
@@ -106,15 +111,15 @@ time_t	get_time_ms(void)
 }
 
 int	main(int ac, char *av[])
-{
-	time_t start_time;
-	start_time = get_time_ms();
-	printf("START TIME: %ld\n", start_time);
+{	
+	//time_t start_time;
+	//start_time = get_time_ms();
+	//printf("START TIME: %ld\n", start_time);
 	if (ac < 5 || ac > 6)
 		return (1);
 	if ((!check_input(av)))
-		printf("Input Invalid\n");
-	usleep(5000);
-	printf("ELAPSED TIME: %ld\n", get_time_ms() - start_time);
+		error("Input Invalid\n");
+	//usleep(5000);
+	//printf("ELAPSED TIME: %ld\n", get_time_ms() - start_time);
 	return (0);
 }
