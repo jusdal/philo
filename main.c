@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/15 02:05:25 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/15 02:55:01 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,35 @@ t_philo	**init_philos(char *av[], t_data *data)
 		philos[i]->finished = false;
 	}
 	return (philos);
+}
+
+void	init_forks(t_data *data)
+{
+	pthread_mutex_t	*forks;
+	int				i;
+
+	forks = malloc(sizeof(pthread_mutex_t) * data->total);
+	i = 0;
+	while (i < data->total)
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		i++;
+	}
+}
+
+void	philo_routine(t_data *data)
+{
+	//even: think first and then eat
+	if (i % 2 == 0)
+	{
+		usleep(data->eat_time);
+	}
+	//odd: start eating
+	pthread_mutex_lock(&data->forks[]); //which fork?
+  	usleep(data->eat_time);
+    pthread_mutex_unlock(&data->forks[]); //which fork?
+	//even: think first and then eat
+	
 }
 
 /* time functions */
