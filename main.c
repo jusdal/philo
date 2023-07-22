@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/22 22:35:58 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/22 22:55:28 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,15 @@ int	main(int ac, char *av[])
 	i = 0;
 	while (i < 5)
 	{
-		pthread_create(&data->philos[i]->tid, NULL, &philo_routine, data->philos[i]);
+		printf("philos[i]->num = %d\n", data->philos[i]->num);
+		printf("philos[i]->times_eaten = %d\n", data->philos[i]->times_eaten);
+		printf("philos[i]->finished = %d\n", data->philos[i]->finished);
+		printf("philos[i]->fork1 = %d\n", data->philos[i]->fork1);
+		printf("philos[i]->fork2 = %d\n", data->philos[i]->fork2);
+		printf("\n-----------------\n");
+		// pthread_create(&data->philos[i]->tid, NULL, &philo_routine, data->philos[i]);
 		i++;
 	}
+	// usleep(400000);
 	return (0);
 }
