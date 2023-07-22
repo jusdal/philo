@@ -6,7 +6,7 @@
 #    By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 19:18:25 by jdaly             #+#    #+#              #
-#    Updated: 2023/07/14 01:42:49 by jdaly            ###   ########.fr        #
+#    Updated: 2023/07/19 17:21:10 by jdaly            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Werror -Wextra -pthread #-fsanitize=address -g
 
 INC = -I ./incl
 
-SRC = main.c
+SRC = main.c errors.c
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c
