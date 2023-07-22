@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/14 22:08:10 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/19 20:32:00 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 # define NC	"\e[0m"
 # define YELLOW	"\e[1;33m"
+
+typedef struct s_philo t_philo;
 
 typedef struct s_data
 {
@@ -41,12 +43,17 @@ typedef struct s_philo
 {
 	int				num; //philo number
 	pthread_t		tid; //thread id
-	pthread_mutex_t	*fork_l; //right fork (ptr to left fork of adjacent philo)
-	pthread_mutex_t	fork_r;
+	int				fork1;
+	int				fork2;
 	t_data			*data; //pointer to data struct
 	time_t			last_eaten; //time when philo last ate
 	int				times_eaten; //number of times philo has eaten
 	bool			finished; //true if eaten must_eat times
 }	t_philo;
+
+int		error(char *message, int exit_nbr);
+void	free_data(t_data *data);
+int		free_error(t_data *data, char *message, int exit_nbr);
+void	*null_error(t_data *data, char *message);
 
 #endif
