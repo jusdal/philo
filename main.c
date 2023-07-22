@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/22 22:55:28 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/23 01:53:44 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,6 @@ pthread_mutex_t	*init_forks(t_data *data)
 	return (forks);
 }
 
-// void	assign_forks(t_philo *philo)
-// {
-// 	philo->fork1 = philo->num;
-// 	philo->fork2 = (philo->num + 1) % philo->data->total;
-// }
-
 t_philo	**init_philos(t_data *data)
 {
 	int		i;
@@ -170,12 +164,40 @@ void	*philo_routine(void *data)
 		printf("philo %d is eating\n", philo->num + 1);
   		usleep(philo->data->eat_time);
 		philo->times_eaten += 1;
-		printf("philo %d is sleeping\n", philo->num + 1);
-    	pthread_mutex_unlock(&philo->data->forks[philo->fork1]);
+		pthread_mutex_unlock(&philo->data->forks[philo->fork1]);
 		pthread_mutex_unlock(&philo->data->forks[philo->fork2]);
+		printf("philo %d is sleeping\n", philo->num + 1);
 		usleep(philo->data->sleep_time);
+		philo_thinking(philo);
 	}
 	return (NULL);
+}
+
+/* monitor thread */
+
+void	*monitor_routine(void *data)
+{
+	t_data	*mdata;
+	bool	all_eaten;
+	time_t	time;
+	int		i;
+
+	mdata = (t_data *)data;
+	all_eaten = true;
+	time = get_time_ms();
+	while (1)
+	{
+		i = 0;
+		while (i < mdata->total)
+		{
+			if ((time - mdata->philos[i]->last_eaten) >= mdata->die_time)
+			{
+				mdata->stop = true;
+				printf("%sPhilo %d has died\n%s", BRED, mdata->philos[i]->num + 1, NC);
+			}
+			i++;
+		}
+	}
 }
 
 int	main(int ac, char *av[])
@@ -189,17 +211,18 @@ int	main(int ac, char *av[])
 		error("Input Invalid\n", 2); //error number?
 	data = init_data(ac, av);
 	i = 0;
+	//pthread_create(&data->monitor, NULL, &monitor_routine, &data);
 	while (i < 5)
 	{
-		printf("philos[i]->num = %d\n", data->philos[i]->num);
-		printf("philos[i]->times_eaten = %d\n", data->philos[i]->times_eaten);
-		printf("philos[i]->finished = %d\n", data->philos[i]->finished);
-		printf("philos[i]->fork1 = %d\n", data->philos[i]->fork1);
-		printf("philos[i]->fork2 = %d\n", data->philos[i]->fork2);
-		printf("\n-----------------\n");
-		// pthread_create(&data->philos[i]->tid, NULL, &philo_routine, data->philos[i]);
+		// printf("philos[i]->num = %d\n", data->philos[i]->num);
+		// printf("philos[i]->times_eaten = %d\n", data->philos[i]->times_eaten);
+		// printf("philos[i]->finished = %d\n", data->philos[i]->finished);
+		// printf("philos[i]->fork1 = %d\n", data->philos[i]->fork1);
+		// printf("philos[i]->fork2 = %d\n", data->philos[i]->fork2);
+		// printf("\n-----------------\n");
+		pthread_create(&data->philos[i]->tid, NULL, &philo_routine, data->philos[i]);
 		i++;
 	}
-	// usleep(400000);
+	usleep(40000000);
 	return (0);
 }
