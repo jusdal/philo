@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/19 20:32:00 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/23 01:22:20 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <unistd.h>
 
 # define NC	"\e[0m"
-# define YELLOW	"\e[1;33m"
+# define BYELLOW	"\e[1;33m"
+# define BRED "\e[1;31m"
 
 typedef struct s_philo t_philo;
 
