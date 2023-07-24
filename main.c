@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/24 22:22:50 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/25 03:01:16 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,13 +192,14 @@ void	*monitor_routine(void *data)
 	time = get_time_ms();
 	while (1)
 	{
-		i = 0;
+		i = 0; 
 		while (i < mdata->total)
 		{
 			if ((time - mdata->philos[i]->last_eaten) >= mdata->die_time)
 			{
 				mdata->stop = true;
 				printf("%s %ld: Philo %d has died\n%s", BRED, get_time_ms(), mdata->philos[i]->num + 1, NC);
+				return (NULL);
 			}
 			i++;
 		}
@@ -216,6 +217,9 @@ int	main(int ac, char *av[])
 		error("Input Invalid\n", 2); //error number?
 	data = init_data(ac, av);
 	i = 0;
+	printf("%s %ld: Philo %d has died\n%s", BRED, get_time_ms(), data->philos[i]->num + 1, NC);
+	pthread_create(&data->monitor, NULL, &monitor_routine, data);
+	data->start_time = get_time_ms();
 	while (i < data->total)
 	{
 	// 	// printf("philos[i]->num = %d\n", data->philos[i]->num);
@@ -227,7 +231,6 @@ int	main(int ac, char *av[])
 		pthread_create(&data->philos[i]->tid, NULL, &philo_routine, data->philos[i]);
 		i++;
 	}
-	pthread_create(&data->monitor, NULL, &monitor_routine, &data);
 	pthread_join(data->monitor, NULL);
 	return (0);
 }
