@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/23 01:22:20 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/24 17:05:32 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef struct s_philo
 {
 	int				num; //philo number
 	pthread_t		tid; //thread id
+	t_data			*data; //pointer to data struct
 	int				fork1;
 	int				fork2;
-	t_data			*data; //pointer to data struct
 	time_t			last_eaten; //time when philo last ate
 	int				times_eaten; //number of times philo has eaten
 	bool			finished; //true if eaten must_eat times
