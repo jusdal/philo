@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/25 03:01:16 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/07/25 18:06:10 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ t_data	*init_data(int ac, char *av[])
 void	philo_thinking(t_philo *philo)
 {
 	printf("philo %d is thinking\n", philo->num);
-	usleep(philo->data->eat_time);
+	usleep(50);
 }
 
 void	*philo_routine(void *data)
@@ -161,6 +161,7 @@ void	*philo_routine(void *data)
 	//odd: start eating, then sleep, then think
 	while (philo->data->stop == false)
 	{
+		philo->last_eaten = philo->data->start_time;
 		pthread_mutex_lock(&philo->data->forks[philo->fork1]);
 		printf("philo %d has picked up fork %d\n", philo->num, philo->fork1);
 		pthread_mutex_lock(&philo->data->forks[philo->fork2]);
@@ -189,20 +190,33 @@ void	*monitor_routine(void *data)
 
 	mdata = (t_data *)data;
 	all_eaten = true;
-	time = get_time_ms();
 	while (1)
 	{
-		i = 0; 
+		i = 0;
+		time = get_time_ms();
 		while (i < mdata->total)
 		{
 			if ((time - mdata->philos[i]->last_eaten) >= mdata->die_time)
 			{
 				mdata->stop = true;
-				printf("%s %ld: Philo %d has died\n%s", BRED, get_time_ms(), mdata->philos[i]->num + 1, NC);
+				printf("%s %ld: Philo %d has died\n%s", BRED, get_time_ms() - mdata->start_time, mdata->philos[i]->num + 1, NC);
 				return (NULL);
 			}
 			i++;
 		}
+	}
+}
+
+void	start_threads(t_data *data)
+{
+	int i;
+	i = 0;
+	while (i < data->total)
+	{
+		pthread_create(&data->philos[i]->tid, NULL, &philo_routine, data->philos[i]);
+		i += 2;
+		if (i >= data->total && i % 2 == 0)
+			i = 1;
 	}
 }
 
@@ -217,20 +231,9 @@ int	main(int ac, char *av[])
 		error("Input Invalid\n", 2); //error number?
 	data = init_data(ac, av);
 	i = 0;
-	printf("%s %ld: Philo %d has died\n%s", BRED, get_time_ms(), data->philos[i]->num + 1, NC);
-	pthread_create(&data->monitor, NULL, &monitor_routine, data);
 	data->start_time = get_time_ms();
-	while (i < data->total)
-	{
-	// 	// printf("philos[i]->num = %d\n", data->philos[i]->num);
-	// 	// printf("philos[i]->times_eaten = %d\n", data->philos[i]->times_eaten);
-	// 	// printf("philos[i]->finished = %d\n", data->philos[i]->finished);
-	// 	// printf("philos[i]->fork1 = %d\n", data->philos[i]->fork1);
-	// 	// printf("philos[i]->fork2 = %d\n", data->philos[i]->fork2);
-	// 	// printf("\n-----------------\n");
-		pthread_create(&data->philos[i]->tid, NULL, &philo_routine, data->philos[i]);
-		i++;
-	}
-	pthread_join(data->monitor, NULL);
+	//pthread_create(&data->monitor, NULL, &monitor_routine, data);
+	start_threads(data);
+	//pthread_join(data->monitor, NULL);
 	return (0);
 }
