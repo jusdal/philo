@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
+/*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/27 20:32:57 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/07 06:18:14 by justindaly       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ typedef struct s_data
 	time_t			eat_time; //time to eat
 	time_t			sleep_time; //time to sleep
 	time_t			must_eat; //number of times philo must eat
-	//time_t			start_time; //philo sim start time
+	time_t			start_time; //philo simulation start time
 	t_philo			**philos; //array of philos
 	pthread_mutex_t	*forks;	
 	pthread_t		monitor; //checks for any dead philos
+	pthread_mutex_t	stop_lock; //prevents conflicts if multiple threads check stop bool
 	bool			stop; //sim is finished when true
 	pthread_mutex_t	print_lock; //to prevent printing after philo dies
 }	t_data;
@@ -45,10 +46,11 @@ typedef struct s_philo
 	t_data			*data; //pointer to data struct
 	int				fork1;
 	int				fork2;
-	time_t			start_time; //when philo started
+	//time_t			start_time; //when philo started
 	time_t			last_eaten; //time when philo last ate
 	int				times_eaten; //number of times philo has eaten
-	bool			finished; //true if eaten must_eat times
+	bool			eating;
+	pthread_mutex_t	meal_lock;
 }	t_philo;
 
 int		error(char *message, int exit_nbr);
