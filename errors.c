@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
+/*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 23:08:29 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/19 20:29:59 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/07 06:53:58 by justindaly       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	free_data(t_data *data)
 
 int	free_error(t_data *data, char *message, int exit_nbr)
 {
-	free_data(data);
+	if (data != NULL)
+		free_data(data);
 	return (error(message, exit_nbr));
 }
 
