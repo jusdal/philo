@@ -6,7 +6,7 @@
 /*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/07 07:09:23 by justindaly       ###   ########.fr       */
+/*   Updated: 2023/08/07 07:27:43 by justindaly       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ void	*monitor_routine(void *mdata)
 	}
 }
 
-/* thread routine functions */
+/* philo thread routine functions */
 
 void	philo_sleeping(t_data *data, time_t sleep_time)
 {
@@ -280,17 +280,31 @@ void	philo_thinking(t_philo *philo)
 	//usleep(100);
 }
 
+void	*one_philo_routine(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->forks[philo->fork1]);
+	write_status(philo, "picked up fork 1");
+	philo_sleeping(philo->data, philo->data->die_time);
+	write_status(philo, "has died");
+	pthread_mutex_unlock(&philo->data->forks[philo->fork1]);
+	return (NULL);
+}
 
 void	*philo_routine(void *data)
 {
 	t_philo *philo;
+
 	philo = (t_philo *)data; //pthread_create takes void * argument so first I need to typecast
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->last_eaten = philo->data->start_time;
 	pthread_mutex_unlock(&philo->meal_lock);
-	//even: think first and then eat
 	sim_start_delay(philo->data->start_time);
-	if (philo->num % 2 == 0)
+	if (philo->data->total == 1)
+		return (one_philo_routine(philo));
+	
+	//even: think first and then eat
+
+	else if (philo->num % 2)
 	{
 		philo_thinking(philo);
 	}
@@ -299,7 +313,6 @@ void	*philo_routine(void *data)
 	{
 		pthread_mutex_lock(&philo->data->forks[philo->fork1]);
 		write_status(philo, "has picked up fork 1");
-		//printf("%ld: Philo %d has picked up fork %d\n", get_time_ms() - philo->start_time, philo->num, philo->fork1);
 		pthread_mutex_lock(&philo->data->forks[philo->fork2]);
 		write_status(philo, "has picked up fork 2");
 		pthread_mutex_lock(&philo->meal_lock);
@@ -307,8 +320,6 @@ void	*philo_routine(void *data)
 		philo->last_eaten = get_time_ms();
 		pthread_mutex_unlock(&philo->meal_lock);
 		write_status(philo, "is eating");
-		//printf("%ld: Philo %d has picked up fork %d\n", get_time_ms() - philo->start_time, philo->num, philo->fork2);
-		//printf("%ld: Philo %d is eating\n", get_time_ms() - philo->start_time, philo->num);
   		philo_sleeping(philo->data, philo->data->eat_time);
 		if (has_simulation_stopped(philo->data) == false)
 		{
@@ -320,13 +331,11 @@ void	*philo_routine(void *data)
 		pthread_mutex_unlock(&philo->data->forks[philo->fork2]);
 		pthread_mutex_unlock(&philo->data->forks[philo->fork1]);
 		write_status(philo, "is sleeping");
-		//printf("%ld: Philo %d is sleeping\n", get_time_ms() - philo->start_time, philo->num);
 		philo_sleeping(philo->data, philo->data->sleep_time);
 		philo_thinking(philo);
 	}
 	return (NULL);
 }
-
 
 bool	start_threads(t_data *data)
 {
@@ -382,7 +391,6 @@ void	stop_dining(t_data *data)
 int	main(int ac, char *av[])
 {
 	t_data *data;
-	//int	i = 0;
 
 	if (ac < 5 || ac > 6)
 		return (1);
