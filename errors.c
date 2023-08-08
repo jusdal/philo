@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 23:08:29 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/07 19:23:33 by justindaly       ###   ########.fr       */
+/*   Updated: 2023/08/08 17:10:45 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	free_data(t_data *data)
 	int	i;
 
 	if (!data)
-		return;
+		return ;
 	if (data->forks)
 		free(data->forks);
-	if(data->philos)
+	if (data->philos)
 	{
 		i = 0;
 		while (i < data->total)

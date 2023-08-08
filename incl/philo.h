@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/07 19:42:07 by justindaly       ###   ########.fr       */
+/*   Updated: 2023/08/08 16:53:05 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_philo
 	t_data			*data; //pointer to data struct
 	int				fork1;
 	int				fork2;
-	//time_t			start_time; when philo started
 	time_t			last_eaten; //time when philo last ate
 	int				times_eaten; //number of times philo has eaten
 	bool			eating;

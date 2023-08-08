@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_monitor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:37:46 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/07 20:41:00 by justindaly       ###   ########.fr       */
+/*   Updated: 2023/08/08 16:54:29 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_stop_flag(t_data *data, bool state)
 
 bool	has_simulation_stopped(t_data *data)
 {
-	bool stopped;
+	bool	stopped;
 
 	stopped = false;
 	pthread_mutex_lock(&data->stop_lock);
@@ -34,7 +34,7 @@ bool	has_simulation_stopped(t_data *data)
 
 bool	kill_philo(t_philo *philo)
 {
-	time_t time;
+	time_t	time;
 
 	time = get_time_ms();
 	if ((time - philo->last_eaten) >= philo->data->die_time)
@@ -49,8 +49,8 @@ bool	kill_philo(t_philo *philo)
 
 bool	end_condition_reached(t_data *data)
 {
-	int	i;
-	bool all_eaten;
+	int		i;
+	bool	all_eaten;
 
 	all_eaten = true;
 	i = 0;
@@ -68,7 +68,7 @@ bool	end_condition_reached(t_data *data)
 	if (data->must_eat != -1 && all_eaten == true)
 	{
 		set_stop_flag(data, true);
-		return(true);
+		return (true);
 	}
 	return (false);
 }
@@ -79,13 +79,13 @@ void	*monitor_routine(void *mdata)
 
 	data = (t_data *)mdata;
 	if (data->must_eat == 0)
-		return NULL;
+		return (NULL);
 	set_stop_flag(data, false);
 	sim_start_delay(data->start_time);
 	while (1)
 	{
 		if (end_condition_reached(data) == true)
-			return NULL;
+			return (NULL);
 		usleep(100);
 	}
 }

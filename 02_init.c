@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   02_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:33:37 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/07 20:41:21 by justindaly       ###   ########.fr       */
+/*   Updated: 2023/08/08 16:40:45 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incl/philo.h"
 
 /* functions to initialize structs */
-
 int	ft_atoi(const char *str)
 {
 	int	holder;
@@ -76,11 +75,6 @@ t_philo	**init_philos(t_data *data)
 		philos[i]->data = data;
 		philos[i]->fork1 = i;
 		philos[i]->fork2 = (i + 1) % data->total;
-		// if (philos[i]->num % 2)
-		// {
-		// 	philos[i]->fork1 = (i + 1) % data->total;
-		// 	philos[i]->fork2 = i;
-		// }
 		philos[i]->last_eaten = get_time_ms();
 		philos[i]->times_eaten = 0;
 		pthread_mutex_init(&philos[i]->meal_lock, NULL);
@@ -91,7 +85,7 @@ t_philo	**init_philos(t_data *data)
 
 t_data	*init_data(int ac, char *av[])
 {
-	t_data *data;
+	t_data	*data;
 
 	data = malloc(sizeof(t_data) * 1);
 	data->total = ft_atoi(av[1]);
@@ -102,8 +96,8 @@ t_data	*init_data(int ac, char *av[])
 	if (ac - 1 == 5)
 		data->must_eat = ft_atoi(av[5]);
 	data->philos = init_philos(data);
-	if(!data->philos)
-	 	return (NULL);
+	if (!data->philos)
+		return (NULL);
 	data->forks = init_forks(data);
 	if (!data->forks)
 		return (NULL);
