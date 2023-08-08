@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04_monitor.c                                       :+:      :+:    :+:   */
+/*   05_monitor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:37:46 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 22:24:02 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 23:34:39 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ static bool	end_condition_reached(t_data *data)
 	return (false);
 }
 
-void	*monitor_routine(void *mdata)
+void	*monitor_routine(void *void_data)
 {
 	t_data	*data;
 
-	data = (t_data *)mdata;
+	data = (t_data *)void_data;
 	if (data->must_eat == 0)
 		return (NULL);
 	set_stop_flag(data, false);
