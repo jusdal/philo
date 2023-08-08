@@ -6,7 +6,7 @@
 /*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/07 06:18:14 by justindaly       ###   ########.fr       */
+/*   Updated: 2023/08/07 19:42:07 by justindaly       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_philo
 	t_data			*data; //pointer to data struct
 	int				fork1;
 	int				fork2;
-	//time_t			start_time; //when philo started
+	//time_t			start_time; when philo started
 	time_t			last_eaten; //time when philo last ate
 	int				times_eaten; //number of times philo has eaten
 	bool			eating;
@@ -57,5 +57,24 @@ int		error(char *message, int exit_nbr);
 void	free_data(t_data *data);
 int		free_error(t_data *data, char *message, int exit_nbr);
 void	*null_error(t_data *data, char *message);
+void	destroy_mutexes(t_data *data);
+
+/* utils */
+time_t	get_time_ms(void);
+void	sim_start_delay(time_t start_time);
+void	write_status(t_philo *philo, char *status);
+
+int	check_input(char *av[]);
+
+/* init */
+t_data	*init_data(int ac, char *av[]);
+
+void	*philo_routine(void *data);
+
+void	*monitor_routine(void *mdata);
+
+bool	has_simulation_stopped(t_data *data);
+
+
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 23:08:29 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/07 06:53:58 by justindaly       ###   ########.fr       */
+/*   Updated: 2023/08/07 19:23:33 by justindaly       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "incl/philo.h"
 
 int	error(char *message, int exit_nbr)
 {
@@ -53,4 +53,19 @@ void	*null_error(t_data *data, char *message)
 		free_data(data);
 	error(message, EXIT_FAILURE);
 	return (NULL);
+}
+
+void	destroy_mutexes(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->total)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philos[i]->meal_lock);
+		i++;
+	}
+	pthread_mutex_destroy(&data->print_lock);
+	pthread_mutex_destroy(&data->stop_lock);
 }

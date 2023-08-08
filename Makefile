@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+         #
+#    By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 19:18:25 by jdaly             #+#    #+#              #
-#    Updated: 2023/07/25 16:27:19 by jdaly            ###   ########.fr        #
+#    Updated: 2023/08/07 19:26:08 by justindaly       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Werror -Wextra -pthread #-fsanitize=thread -g
 
 INC = -I ./incl
 
-SRC = main.c errors.c
+SRC = 00_utils.c 01_checkargs.c 02_init.c 03_philo.c 04_monitor.c 05_main.c errors.c
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c
