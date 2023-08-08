@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/08 17:44:46 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 19:27:53 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	start_threads(t_data *data)
 	return (true);
 }
 
-void	stop_dining(t_data *data)
+void	stop_threads(t_data *data)
 {
 	int	i;
 
@@ -65,6 +65,6 @@ int	main(int ac, char *av[])
 		return (EXIT_FAILURE);
 	if (!start_threads(data))
 		return (EXIT_FAILURE);
-	stop_dining(data);
+	stop_threads(data);
 	return (EXIT_SUCCESS);
 }

@@ -6,14 +6,14 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:37:46 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 16:54:29 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 22:24:02 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incl/philo.h"
 
 /* monitor thread */
-void	set_stop_flag(t_data *data, bool state)
+static void	set_stop_flag(t_data *data, bool state)
 {
 	pthread_mutex_lock(&data->stop_lock);
 	data->stop = state;
@@ -32,7 +32,7 @@ bool	has_simulation_stopped(t_data *data)
 	return (stopped);
 }
 
-bool	kill_philo(t_philo *philo)
+static bool	kill_philo(t_philo *philo)
 {
 	time_t	time;
 
@@ -47,7 +47,7 @@ bool	kill_philo(t_philo *philo)
 	return (false);
 }
 
-bool	end_condition_reached(t_data *data)
+static bool	end_condition_reached(t_data *data)
 {
 	int		i;
 	bool	all_eaten;
@@ -86,6 +86,6 @@ void	*monitor_routine(void *mdata)
 	{
 		if (end_condition_reached(data) == true)
 			return (NULL);
-		usleep(100);
+		usleep(1000);
 	}
 }

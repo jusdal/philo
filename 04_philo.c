@@ -6,14 +6,14 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:36:15 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 16:49:24 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 22:23:22 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incl/philo.h"
 
 /* philo thread routine functions */
-void	philo_sleeping(t_data *data, time_t sleep_time)
+static void	philo_sleeping(t_data *data, time_t sleep_time)
 {
 	time_t	wake_up;
 
@@ -26,7 +26,7 @@ void	philo_sleeping(t_data *data, time_t sleep_time)
 	}
 }
 
-void	philo_thinking(t_philo *philo)
+static void	philo_thinking(t_philo *philo)
 {
 	time_t	time_to_think;
 
@@ -42,7 +42,7 @@ void	philo_thinking(t_philo *philo)
 	philo_sleeping(philo->data, time_to_think);
 }
 
-void	*one_philo_routine(t_philo *philo)
+static void	*one_philo_routine(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks[philo->fork1]);
 	write_status(philo, "picked up fork 1");
@@ -52,7 +52,7 @@ void	*one_philo_routine(t_philo *philo)
 	return (NULL);
 }
 
-void	philo_loop(t_philo *philo)
+static void	philo_loop(t_philo *philo)
 {
 	while (has_simulation_stopped(philo->data) == false)
 	{

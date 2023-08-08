@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+         #
+#    By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 19:18:25 by jdaly             #+#    #+#              #
-#    Updated: 2023/08/07 19:26:08 by justindaly       ###   ########.fr        #
+#    Updated: 2023/08/08 22:31:10 by jdaly            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread #-fsanitize=thread -g
+CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=threads -g
 
 INC = -I ./incl
 
-SRC = 00_utils.c 01_checkargs.c 02_init.c 03_philo.c 04_monitor.c 05_main.c errors.c
+SRC = 00_utils.c 01_errors.c 02_checkargs.c 03_init.c 04_philo.c 05_monitor.c 06_main.c
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c
