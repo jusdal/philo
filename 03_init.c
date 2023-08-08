@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_init.c                                          :+:      :+:    :+:   */
+/*   03_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:33:37 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 16:40:45 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 23:58:50 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,10 @@ t_data	*init_data(int ac, char *av[])
 	data->forks = init_forks(data);
 	if (!data->forks)
 		return (NULL);
+	if (pthread_mutex_init(&data->stop_lock, NULL) != 0)
+		return (NULL);
+	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
+		return (NULL);
 	data->stop = false;
-	pthread_mutex_init(&data->stop_lock, NULL);
-	pthread_mutex_init(&data->print_lock, NULL);
 	return (data);
 }
