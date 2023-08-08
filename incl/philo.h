@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/08 16:53:05 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 17:44:07 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,37 +21,37 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
 typedef struct s_data
 {
-	int				total; //total number of philos
-	time_t			die_time; //time to die
-	time_t			eat_time; //time to eat
-	time_t			sleep_time; //time to sleep
-	time_t			must_eat; //number of times philo must eat
-	time_t			start_time; //philo simulation start time
-	t_philo			**philos; //array of philos
-	pthread_mutex_t	*forks;	
-	pthread_t		monitor; //checks for any dead philos
-	pthread_mutex_t	stop_lock; //prevents conflicts if multiple threads check stop bool
-	bool			stop; //sim is finished when true
-	pthread_mutex_t	print_lock; //to prevent printing after philo dies
+	int				total;
+	time_t			die_time;
+	time_t			eat_time;
+	time_t			sleep_time;
+	time_t			must_eat;
+	time_t			start_time;
+	t_philo			**philos;
+	pthread_mutex_t	*forks;
+	pthread_t		monitor;
+	pthread_mutex_t	stop_lock;
+	bool			stop;
+	pthread_mutex_t	print_lock;
 }	t_data;
 
 typedef struct s_philo
 {
-	int				num; //philo number
-	pthread_t		tid; //thread id
-	t_data			*data; //pointer to data struct
+	int				num;
+	pthread_t		tid;
+	t_data			*data;
 	int				fork1;
 	int				fork2;
-	time_t			last_eaten; //time when philo last ate
-	int				times_eaten; //number of times philo has eaten
-	bool			eating;
+	time_t			last_eaten;
+	int				times_eaten;
 	pthread_mutex_t	meal_lock;
 }	t_philo;
 
+/* errors */
 int		error(char *message, int exit_nbr);
 void	free_data(t_data *data);
 int		free_error(t_data *data, char *message, int exit_nbr);
@@ -63,17 +63,17 @@ time_t	get_time_ms(void);
 void	sim_start_delay(time_t start_time);
 void	write_status(t_philo *philo, char *status);
 
-int	check_input(char *av[]);
+/* checkargs */
+int		check_input(char *av[]);
 
 /* init */
 t_data	*init_data(int ac, char *av[]);
 
+/* philo */
 void	*philo_routine(void *data);
 
+/* monitor */
 void	*monitor_routine(void *mdata);
-
 bool	has_simulation_stopped(t_data *data);
-
-
 
 #endif
