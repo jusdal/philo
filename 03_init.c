@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:33:37 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 23:58:50 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/09 00:10:49 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ t_data	*init_data(int ac, char *av[])
 	t_data	*data;
 
 	data = malloc(sizeof(t_data) * 1);
-	data->total = ft_atoi(av[1]);
-	data->die_time = ft_atoi(av[2]);
-	data->eat_time = ft_atoi(av[3]);
-	data->sleep_time = ft_atoi(av[4]);
+	data->total = ft_pos_atoi(av[1]);
+	data->die_time = ft_pos_atoi(av[2]);
+	data->eat_time = ft_pos_atoi(av[3]);
+	data->sleep_time = ft_pos_atoi(av[4]);
 	data->must_eat = -1;
 	if (ac - 1 == 5)
 		data->must_eat = ft_atoi(av[5]);
