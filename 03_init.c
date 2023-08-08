@@ -6,39 +6,13 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:33:37 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/09 00:10:49 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/09 01:19:08 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incl/philo.h"
 
 /* functions to initialize structs */
-int	ft_atoi(const char *str)
-{
-	int	holder;
-	int	minuscounter;
-	int	i;
-
-	i = 0;
-	minuscounter = 1;
-	holder = 0;
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			minuscounter = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		holder = holder * 10 + (str[i] - '0');
-		i++;
-	}
-	return (holder * minuscounter);
-}
-
 pthread_mutex_t	*init_forks(t_data *data)
 {
 	pthread_mutex_t	*forks;
@@ -94,7 +68,7 @@ t_data	*init_data(int ac, char *av[])
 	data->sleep_time = ft_pos_atoi(av[4]);
 	data->must_eat = -1;
 	if (ac - 1 == 5)
-		data->must_eat = ft_atoi(av[5]);
+		data->must_eat = ft_pos_atoi(av[5]);
 	data->philos = init_philos(data);
 	if (!data->philos)
 		return (NULL);
