@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/08 19:20:46 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/09 00:10:35 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	sim_start_delay(time_t start_time);
 void	write_status(t_philo *philo, char *status);
 
 /* checkargs */
+int		ft_pos_atoi(const char *str);
 int		check_input(char *av[]);
 
 /* init */
