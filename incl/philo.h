@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:27:52 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/09 00:10:35 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/09 01:24:54 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ int		check_input(char *av[]);
 t_data	*init_data(int ac, char *av[]);
 
 /* philo */
-void	*philo_routine(void *data);
+void	*philo_routine(void *void_philo);
 
 /* monitor */
-void	*monitor_routine(void *mdata);
+void	*monitor_routine(void *void_data);
 bool	has_simulation_stopped(t_data *data);
 
 #endif
