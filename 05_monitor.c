@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:37:46 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 23:34:39 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/09 01:13:51 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ void	*monitor_routine(void *void_data)
 	t_data	*data;
 
 	data = (t_data *)void_data;
-	if (data->must_eat == 0)
-		return (NULL);
 	set_stop_flag(data, false);
 	sim_start_delay(data->start_time);
 	while (1)
