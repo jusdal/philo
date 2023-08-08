@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 19:25:50 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 16:33:55 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 23:34:08 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sim_start_delay(time_t start_time)
 void	write_status(t_philo *philo, char *status)
 {
 	pthread_mutex_lock(&philo->data->print_lock);
-	if (philo->data->stop == true)
+	if (has_simulation_stopped(philo->data) == true)
 	{
 		pthread_mutex_unlock(&philo->data->print_lock);
 		return ;
