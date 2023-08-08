@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   01_checkargs.c                                     :+:      :+:    :+:   */
+/*   02_checkargs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:31:41 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 19:24:53 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/09 00:12:10 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_isdigit(int c)
 		return (1);
 }
 
-int	ft_positive_atoi(const char *str)
+int	ft_pos_atoi(const char *str)
 {
 	long	holder;
 	int		i;
@@ -52,7 +52,7 @@ int	check_input(char *av[])
 			if (!(ft_isdigit(av[i][j])))
 				return (0);
 		}
-		if (ft_positive_atoi(av[i]) == -1 || ft_positive_atoi(av[i]) == 0)
+		if (ft_pos_atoi(av[i]) == -1 || ft_pos_atoi(av[i]) == 0)
 			return (0);
 	}
 	return (1);
