@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: justindaly <justindaly@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 19:25:50 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/07 19:28:35 by justindaly       ###   ########.fr       */
+/*   Updated: 2023/08/08 16:33:55 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	write_status(t_philo *philo, char *status)
 		pthread_mutex_unlock(&philo->data->print_lock);
 		return ;
 	}
-	printf("%ld %d %s\n", get_time_ms() - philo->data->start_time, (philo->num + 1), status);
+	printf("%ld %d %s\n", get_time_ms() - philo->data->start_time,
+		(philo->num + 1), status);
 	pthread_mutex_unlock(&philo->data->print_lock);
 }
