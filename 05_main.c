@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:41:04 by jdaly             #+#    #+#             */
-/*   Updated: 2023/08/08 17:10:00 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 17:44:46 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	start_threads(t_data *data)
 	if (data->total > 1)
 	{
 		if (pthread_create(&data->monitor, NULL, &monitor_routine, data) != 0)
-			return (free_error(data, "error: could not create thread\n", 0));
+			return (free_error(data, "error: could not create thread", 0));
 	}
 	return (true);
 }
@@ -57,7 +57,7 @@ int	main(int ac, char *av[])
 		return (1);
 	if ((!check_input(av)))
 	{
-		error("Input Invalid\n", 2);
+		error("Input Invalid", EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}
 	data = init_data(ac, av);
