@@ -6,7 +6,7 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 07:36:15 by justindaly        #+#    #+#             */
-/*   Updated: 2023/08/08 23:55:11 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/09 01:24:23 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ static void	philo_loop(t_philo *philo)
 	philo_thinking(philo);
 }
 
-void	*philo_routine(void *data)
+void	*philo_routine(void *void_philo)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *)data;
+	philo = (t_philo *)void_philo;
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->last_eaten = philo->data->start_time;
 	pthread_mutex_unlock(&philo->meal_lock);
