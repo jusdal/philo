@@ -6,12 +6,12 @@
 /*   By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 19:57:42 by jdaly             #+#    #+#             */
-/*   Updated: 2023/07/27 19:58:01 by jdaly            ###   ########.fr       */
+/*   Updated: 2023/08/08 17:12:57 by jdaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef COLORS_H
+# define COLORS_H
 
 //Regular text
 # define BLK "\e[0;30m"
