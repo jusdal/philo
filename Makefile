@@ -6,13 +6,13 @@
 #    By: jdaly <jdaly@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 19:18:25 by jdaly             #+#    #+#              #
-#    Updated: 2023/08/08 22:31:10 by jdaly            ###   ########.fr        #
+#    Updated: 2023/08/09 00:05:20 by jdaly            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=threads -g
+CFLAGS = -Wall -Werror -Wextra -pthread #-fsanitize=thread -g
 
 INC = -I ./incl
 
